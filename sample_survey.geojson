@@ -1,0 +1,54 @@
+{
+  "type": "FeatureCollection",
+  "name": "Sector 4 Urban Residential Cadastre",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "EPSG:32643"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "parcel_id": "PAR-2024-0104",
+        "owner": "Metropolitan Housing Board",
+        "land_use": "Residential (Villa)",
+        "area_m2": 610.4,
+        "perimeter_m": 101.4,
+        "building_count": 1,
+        "building_area_m2": 260.0,
+        "bcr_percent": 42.6,
+        "confidence": 99.2,
+        "legal_status": "Verified"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.2103,
+              28.6155
+            ],
+            [
+              77.2114,
+              28.6155
+            ],
+            [
+              77.2114,
+              28.6149
+            ],
+            [
+              77.2103,
+              28.6149
+            ],
+            [
+              77.2103,
+              28.6155
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}
