@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI-Based Automated Urban Parcel Mapping & Cadastral Feature Extraction using Drone Imagery</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="app-container">
+  <!-- Top Navigation Header -->
+  <header class="top-header">
+    <div class="brand-section">
+      <div class="brand-logo">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+          <polyline points="2 17 12 22 22 17"></polyline>
+          <polyline points="2 12 12 17 22 12"></polyline>
+        </svg>
+      </div>
+      <div class="brand-info">
+        <h1>
+          AeroCadastre AI
+          <span class="tag">AI + GIS Engine v2.4</span>
+        </h1>
+        <p>Automated Urban Parcel Mapping & Cadastral Feature Extraction from Drone Imagery</p>
+      </div>
+    </div>
+
+    <div class="header-status">
+      <div class="active-dataset-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+        </svg>
+        <span id="header-dataset-name">Sector 4 Urban Residential Cadastre</span>
+      </div>
+
+      <div class="status-pill">
+        <span class="indicator"></span>
+        <span>CV / YOLOv8 Online &bull; GSD 2.8cm</span>
+      </div>
+      
+      <div class="status-pill">
+        <span>CRS: EPSG:32643 (UTM 43N)</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar">
+    <nav class="nav-menu">
+      <div class="nav-label">Workflow Screens</div>
+      
+      <div class="nav-item active" data-screen="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <rect x="3" y="3" width="7" height="7"></rect>
+          <rect x="14" y="3" width="7" height="7"></rect>
+          <rect x="14" y="14" width="7" height="7"></rect>
+          <rect x="3" y="14" width="7" height="7"></rect>
+        </svg>
+        <span>Screen 1: Dashboard</span>
+      </div>
+
+      <div class="nav-item" data-screen="upload">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="17 8 12 3 7 8"></polyline>
+          <line x1="12" y1="3" x2="12" y2="15"></line>
+        </svg>
+        <span>Screen 2: Image Upload</span>
+      </div>
+
+      <div class="nav-item" data-screen="processing">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+        </svg>
+        <span>Screen 3: AI Processing</span>
+        <span class="badge">Engine</span>
+      </div>
+
+      <div class="nav-item" data-screen="result">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
+          <line x1="8" y1="2" x2="8" y2="18"></line>
+          <line x1="16" y1="6" x2="16" y2="22"></line>
+        </svg>
+        <span>Screen 4: GIS Map & Vectors</span>
+        <span class="badge">Core</span>
+      </div>
+
+      <div class="nav-item" data-screen="report">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        <span>Screen 5: Report & Analytics</span>
+      </div>
+
+      <div class="nav-label" style="margin-top: 14px;">System Architecture</div>
+      <div class="nav-item" data-screen="architecture">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+          <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+          <line x1="6" y1="6" x2="6.01" y2="6"></line>
+          <line x1="6" y1="18" x2="6.01" y2="18"></line>
+        </svg>
+        <span>Tech Stack Pipeline</span>
+      </div>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="survey-spec-card">
+        <div class="spec-row">
+          <span>Flight Altitude:</span>
+          <span class="spec-val">120m AGL</span>
+        </div>
+        <div class="spec-row">
+          <span>Ground Sampling:</span>
+          <span class="spec-val">2.8 cm/px</span>
+        </div>
+        <div class="spec-row">
+          <span>Sensor Array:</span>
+          <span class="spec-val">DJI P1 45MP</span>
+        </div>
+        <div class="spec-row">
+          <span>Accuracy RMSE:</span>
+          <span class="spec-val" style="color: #10b981;">&lt; 0.082 m</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Screens Viewport -->
+  <main class="main-content">
+
+    <!-- ====================================================================
+         SCREEN 1: HOME & DASHBOARD
+         ==================================================================== -->
+    <section id="screen-dashboard" class="screen-view active">
+      <!-- Hero Banner -->
+      <div class="hero-banner">
+        <div class="hero-tag">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+          Automated Photogrammetric Cadastre & Deep Learning Vectorization
+        </div>
+        <h2>AI-Based Automated Urban Parcel Mapping &amp; Cadastral Feature Extraction using Drone Imagery</h2>
+        <p>
+          High-precision end-to-end aerial survey automation. Ingests centimeter-level UAV orthomosaics, applies radiometrically enhanced computer vision, extracts building footprints, traces cadastral parcel boundaries with sub-decimeter topological accuracy, and exports GIS-ready GeoJSON datasets and legal land registry schedules.
+        </p>
+        
+        <div class="hero-actions">
+          <button class="btn btn-primary" id="btn-hero-upload">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            Upload Drone Image
+          </button>
+          
+          <button class="btn btn-secondary" id="btn-hero-demo">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            View Interactive Cadastral Map
+          </button>
+        </div>
+      </div>
+
+      <!-- Complete End-to-End Workflow Pipeline Visualization -->
+      <div class="workflow-section">
+        <div class="section-header">
+          <h3>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+            </svg>
+            End-to-End Cadastral Mapping Architecture Workflow
+          </h3>
+          <span class="subtitle">Complete Pipeline: Raw UAV Orthomosaic to Legal Vector Registry</span>
+        </div>
+
+        <div class="workflow-pipeline">
+          <div class="pipeline-step active" onclick="navigateToScreen('upload')">
+            <div class="step-icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="m4.93 4.93 4.24 4.24"></path>
+                <path d="m14.83 9.17 4.24-4.24"></path>
+                <path d="m14.83 14.83 4.24 4.24"></path>
+                <path d="m9.17 14.83-4.24 4.24"></path>
+              </svg>
+            </div>
+            <div class="step-title">1. Drone Imagery</div>
+            <div class="step-desc">UAV Orthomosaic capture &amp; geotagging</div>
+          </div>
+
+          <div class="pipeline-connector"></div>
+
+          <div class="pipeline-step" onclick="navigateToScreen('upload')">
+            <div class="step-icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+            </div>
+            <div class="step-title">2. Image Upload</div>
+            <div class="step-desc">GeoTIFF / PNG &amp; GSD parameter setup</div>
+          </div>
+
+          <div class="pipeline-connector"></div>
+
+          <div class="pipeline-step" onclick="navigateToScreen('processing')">
+            <div class="step-icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+              </svg>
+            </div>
+            <div class="step-title">3. Preprocessing</div>
+            <div class="step-desc">CLAHE contrast &amp; tiling pyramids</div>
+          </div>
+
+          <div class="pipeline-connector"></div>
+
+          <div class="pipeline-step" onclick="navigateToScreen('processing')">
+            <div class="step-icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+            </div>
+            <div class="step-title">4. AI / CV Engine</div>
+            <div class="step-desc">YOLOv8 + SAM segmentation</div>
+          </div>
+
+          <div class="pipeline-connector"></div>
+
+          <div class="pipeline-step" onclick="navigateToScreen('result')">
+            <div class="step-icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                <polyline points="2 17 12 22 22 17"></polyline>
+              </svg>
+            </div>
+            <div class="step-title">5. GIS Vector Map</div>
+            <div class="step-desc">Parcels, buildings &amp; roads overlay</div>
+          </div>
+
+          <div class="pipeline-connector"></div>
+
+          <div class="pipeline-step" onclick="navigateToScreen('report')">
+            <div class="step-icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+            </div>
+            <div class="step-title">6. Analytics &amp; Export</div>
+            <div class="step-desc">GeoJSON, CSV &amp; PDF certificate</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Stats KPI Cards -->
+      <div class="metrics-row">
+        <div class="metric-card">
+          <div class="label">Total Parcels Detected</div>
+          <div class="value" id="stat-parcels">15</div>
+          <div class="sub">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline></svg>
+            100% Topological closure
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="label">Building Footprints Extracted</div>
+          <div class="value" id="stat-buildings">22</div>
+          <div class="sub">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline></svg>
+            3D Rooftop heights classified
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="label">Total Survey Mapped Area</div>
+          <div class="value" id="stat-area">4.82 ha</div>
+          <div class="sub">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline></svg>
+            48,200 m&sup2; coverage
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="label">AI Model Mean Confidence</div>
+          <div class="value" id="stat-confidence">96.8%</div>
+          <div class="sub">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline></svg>
+            Boundary RMSE: 0.082m
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Analysis Summary -->
+      <div class="recent-surveys-card">
+        <div class="section-header">
+          <h3>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            Recent Drone Photogrammetric Cadastral Surveys
+          </h3>
+          <span class="subtitle">Showing recently processed aerial flight blocks</span>
+        </div>
+
+        <table class="gis-table">
+          <thead>
+            <tr>
+              <th>Survey Flight ID</th>
+              <th>Location &amp; Zone</th>
+              <th>Ground Resolution</th>
+              <th>Parcels</th>
+              <th>Buildings</th>
+              <th>Survey Date</th>
+              <th>Cadastral Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-family: var(--font-mono); font-weight: 700; color: #00f2fe;">UAV-SEC4-2026-08</td>
+              <td>Sector 4 Urban Residential Block</td>
+              <td style="font-family: var(--font-mono);">2.8 cm/px (GSD)</td>
+              <td>15 Parcels</td>
+              <td>22 Buildings</td>
+              <td>2026-08-14</td>
+              <td><span class="status-tag verified">Verified &bull; OGC Valid</span></td>
+              <td><button class="btn btn-secondary" style="padding: 4px 10px; font-size: 11px;" onclick="navigateToScreen('result')">View Result</button></td>
+            </tr>
+            <tr>
+              <td style="font-family: var(--font-mono); font-weight: 700; color: #00f2fe;">UAV-CBD2-2026-08</td>
+              <td>District 2 Commercial Financial Core</td>
+              <td style="font-family: var(--font-mono);">3.4 cm/px (GSD)</td>
+              <td>10 Parcels</td>
+              <td>16 Buildings</td>
+              <td>2026-08-18</td>
+              <td><span class="status-tag verified">Verified &bull; OGC Valid</span></td>
+              <td><button class="btn btn-secondary" style="padding: 4px 10px; font-size: 11px;" onclick="navigateToScreen('result')">View Result</button></td>
+            </tr>
+            <tr>
+              <td style="font-family: var(--font-mono); font-weight: 700; color: #00f2fe;">UAV-SUB9-2026-08</td>
+              <td>Zone 9 Suburban Villa Expansion</td>
+              <td style="font-family: var(--font-mono);">2.4 cm/px (GSD)</td>
+              <td>14 Parcels</td>
+              <td>18 Buildings</td>
+              <td>2026-08-22</td>
+              <td><span class="status-tag verified">Verified &bull; OGC Valid</span></td>
+              <td><button class="btn btn-secondary" style="padding: 4px 10px; font-size: 11px;" onclick="navigateToScreen('result')">View Result</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCREEN 2: DRONE IMAGE UPLOAD & SURVEY CONFIG
+         ==================================================================== -->
+    <section id="screen-upload" class="screen-view">
+      <div class="section-header">
+        <div>
+          <h3>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            Drone Flight Imagery Ingestion &amp; Sensor Calibration
+          </h3>
+          <p class="subtitle">Upload high-resolution aerial orthomosaics or select calibrated drone survey flights</p>
+        </div>
+      </div>
+
+      <div class="upload-grid">
+        <!-- Left Column: Dropzone and Preset Selector -->
+        <div class="upload-left-pane">
+          <!-- Dropzone -->
+          <div class="dropzone-container" id="dropzone">
+            <input type="file" id="file-input" style="display: none;" accept=".tif,.tiff,.png,.jpg,.jpeg,.zip">
+            <div class="dropzone-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+            </div>
+            <div class="dropzone-title">Drag &amp; Drop High-Res Drone Orthomosaic</div>
+            <div class="dropzone-sub">Supports GeoTIFF, PNG, JPG orthomosaics with embedded EXIF or photogrammetric worldfiles (Max: 250MB)</div>
+            
+            <div class="format-pills">
+              <span class="format-pill">GeoTIFF</span>
+              <span class="format-pill">PNG (RGB)</span>
+              <span class="format-pill">JPG (EXIF)</span>
+              <span class="format-pill">EPSG:32643</span>
+            </div>
+          </div>
+
+          <!-- Preset Drone Flight Datasets -->
+          <div class="preset-selector-card">
+            <div class="section-header" style="margin-bottom: 8px;">
+              <h4 style="font-size: 13px; color: var(--text-main); font-weight: 700;">Pre-loaded UAV Survey Flight Blocks</h4>
+              <span class="subtitle">One-click benchmark datasets</span>
+            </div>
+
+            <div class="preset-list">
+              <div class="preset-item active">
+                <div class="preset-item-info">
+                  <h4>Sector 4 Urban Residential Cadastre</h4>
+                  <p>4K Orthomosaic &bull; 2.8cm GSD &bull; 15 Parcels &bull; Residential Low-Rise &amp; Villas</p>
+                </div>
+                <span class="status-tag verified">Ready</span>
+              </div>
+
+              <div class="preset-item">
+                <div class="preset-item-info">
+                  <h4>Commercial CBD &amp; High-Density Mixed Zone</h4>
+                  <p>100MP Sensor &bull; 3.4cm GSD &bull; 10 Parcels &bull; Commercial Towers &amp; Plazas</p>
+                </div>
+                <span class="status-tag verified">Ready</span>
+              </div>
+
+              <div class="preset-item">
+                <div class="preset-item-info">
+                  <h4>Suburban Villa &amp; Agricultural Transition Zone</h4>
+                  <p>45MP Sensor &bull; 2.4cm GSD &bull; 14 Parcels &bull; Greenbelt Estates &amp; Pathways</p>
+                </div>
+                <span class="status-tag verified">Ready</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Image Preview and Metadata Form -->
+        <div class="upload-right-pane">
+          <!-- Canvas Preview -->
+          <div class="preview-container">
+            <div class="section-header" style="margin-bottom: 8px;">
+              <h4 style="font-size: 13px; color: var(--text-main); font-weight: 700;">Drone Flight Orthomosaic Preview</h4>
+              <span class="subtitle">Calibrated RGB Basemap</span>
+            </div>
+
+            <div class="preview-viewport">
+              <canvas id="preview-canvas" class="preview-canvas"></canvas>
+              <div class="preview-overlay-info">
+                <span>Lat: 28.6139&deg; N, Lon: 77.2090&deg; E</span>
+                <span>GSD: 2.8 cm/px &bull; Altitude: 120m</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Photogrammetry Metadata Form -->
+          <div class="metadata-card">
+            <h4 style="font-size: 13px; color: var(--text-main); font-weight: 700;">Photogrammetric Flight &amp; Sensor Parameters</h4>
+            
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Flight Altitude (AGL)</label>
+                <input type="text" id="meta-altitude" class="form-control" value="120 m AGL" readonly>
+              </div>
+
+              <div class="form-group">
+                <label>Ground Sampling Distance (GSD)</label>
+                <input type="text" id="meta-gsd" class="form-control" value="2.8 cm/px" readonly>
+              </div>
+
+              <div class="form-group">
+                <label>Coordinate Reference System (CRS)</label>
+                <input type="text" id="meta-crs" class="form-control" value="EPSG:32643 (UTM Zone 43N)" readonly>
+              </div>
+
+              <div class="form-group">
+                <label>Camera Sensor Model</label>
+                <input type="text" id="meta-sensor" class="form-control" value="DJI Zenmuse P1 (45 MP)" readonly>
+              </div>
+
+              <div class="form-group" style="grid-column: 1 / -1;">
+                <label>Forward / Lateral Overlap Ratio</label>
+                <input type="text" id="meta-overlap" class="form-control" value="80% Forward / 70% Side" readonly>
+              </div>
+            </div>
+
+            <button class="btn btn-primary" id="btn-analyze-image" style="width: 100%; margin-top: 16px; padding: 12px; font-size: 13.5px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+              Analyze Image &bull; Run AI Cadastral Pipeline
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCREEN 3: AI PROCESSING PIPELINE
+         ==================================================================== -->
+    <section id="screen-processing" class="screen-view">
+      <div class="processing-screen">
+        <div class="processing-card">
+          <div class="processing-header">
+            <h2>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00f2fe" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 14 14"></polyline>
+              </svg>
+              Processing drone imagery with AI &amp; Geospatial Engine...
+            </h2>
+            <p>Executing multi-stage deep learning inference and planar cadastral topology regularization</p>
+          </div>
+
+          <!-- Linear Progress Bar -->
+          <div class="progress-track-wrap">
+            <div class="progress-meta">
+              <span class="current-stage" id="current-stage-title">Stage 1/6: Image Preprocessing &amp; CLAHE Radiometric Calibration</span>
+              <span class="percent-text" id="progress-percent">0%</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="progress-bar-fill"></div>
+            </div>
+          </div>
+
+          <!-- 6 Sequential Stages Stepper Nodes -->
+          <div class="stage-stepper">
+            <div class="stage-node active">
+              <div class="stage-node-icon">🛰️</div>
+              <div class="stage-node-title">1. Preprocessing</div>
+              <div class="stage-node-status">RUNNING...</div>
+            </div>
+
+            <div class="stage-node">
+              <div class="stage-node-icon">🏠</div>
+              <div class="stage-node-title">2. Buildings</div>
+              <div class="stage-node-status">WAITING</div>
+            </div>
+
+            <div class="stage-node">
+              <div class="stage-node-icon">🟦</div>
+              <div class="stage-node-title">3. Parcels</div>
+              <div class="stage-node-status">WAITING</div>
+            </div>
+
+            <div class="stage-node">
+              <div class="stage-node-icon">🛣️</div>
+              <div class="stage-node-title">4. Roads</div>
+              <div class="stage-node-status">WAITING</div>
+            </div>
+
+            <div class="stage-node">
+              <div class="stage-node-icon">📐</div>
+              <div class="stage-node-title">5. Vectors</div>
+              <div class="stage-node-status">WAITING</div>
+            </div>
+
+            <div class="stage-node">
+              <div class="stage-node-icon">🗺️</div>
+              <div class="stage-node-title">6. GeoJSON</div>
+              <div class="stage-node-status">WAITING</div>
+            </div>
+          </div>
+
+          <!-- Live Diagnostic Terminal Stream -->
+          <div class="terminal-card" id="processing-terminal">
+            <div class="log-line"><span class="log-time">[00:00:01]</span> <span class="log-info">[INIT]</span> Initializing PyTorch 2.3 + CUDA 12.2 on NVIDIA RTX 4090 (24GB VRAM)...</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCREEN 4: RESULT PAGE (MAIN HIGHLIGHT & GIS ENGINE)
+         ==================================================================== -->
+    <section id="screen-result" class="screen-view">
+      <!-- Top Analytics KPI Mini Cards -->
+      <div class="gis-analytics-top-bar">
+        <div class="analytics-mini-card">
+          <div class="info-title">Parcels Detected</div>
+          <div class="info-val" style="color: #00d2ff;">15 Parcels</div>
+        </div>
+
+        <div class="analytics-mini-card">
+          <div class="info-title">Buildings Detected</div>
+          <div class="info-val" style="color: #fb923c;">22 Footprints</div>
+        </div>
+
+        <div class="analytics-mini-card">
+          <div class="info-title">Total Mapped Area</div>
+          <div class="info-val" style="color: #facc15;">4.82 Hectares</div>
+        </div>
+
+        <div class="analytics-mini-card">
+          <div class="info-title">Model Confidence (Mean IoU)</div>
+          <div class="info-val" style="color: #10b981;">96.8% (RMSE 0.082m)</div>
+        </div>
+      </div>
+
+      <!-- Main GIS Viewport Layout -->
+      <div class="gis-result-layout">
+        <!-- Interactive Map Canvas Container -->
+        <div class="gis-map-viewport" id="gis-viewport">
+          <div id="gis-canvas-container">
+            <canvas id="gis-main-canvas"></canvas>
+          </div>
+
+          <!-- Before/After Split Curtain Slider Divider -->
+          <div class="split-slider-line" id="split-slider-line" style="left: 50%;">
+            <div class="split-slider-handle">
+              &#8644;
+            </div>
+          </div>
+
+          <div class="split-badge-left">Raw Drone Imagery</div>
+          <div class="split-badge-right">AI Cadastral Vectors</div>
+
+          <!-- Floating GIS Toolbar -->
+          <div class="gis-floating-toolbar">
+            <button class="tool-btn active" data-tool="select" title="Select / Inspect Parcel">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 3l7 18 3-7 7-3L3 3z"></path>
+              </svg>
+            </button>
+
+            <button class="tool-btn" data-tool="measure-dist" title="Measure Distance Polyline">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M2 12h20M6 8v8M18 8v8"></path>
+              </svg>
+            </button>
+
+            <button class="tool-btn" data-tool="measure-area" title="Measure Area Polygon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 2 22 22 22"></polygon>
+              </svg>
+            </button>
+
+            <div class="toolbar-divider"></div>
+
+            <button class="tool-btn" onclick="AppState.mapZoom = 1.0; AppState.mapPan = {x:0, y:0}; renderGisMap();" title="Reset Map Extent">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="1 4 1 10 7 10"></polyline>
+                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Map Navigation Zoom Tools -->
+          <div class="map-nav-tools">
+            <button class="map-nav-btn" onclick="AppState.mapZoom = Math.min(4.0, AppState.mapZoom * 1.2); renderGisMap();" title="Zoom In (+)">+</button>
+            <button class="map-nav-btn" onclick="AppState.mapZoom = Math.max(0.6, AppState.mapZoom / 1.2); renderGisMap();" title="Zoom Out (-)">-</button>
+          </div>
+
+          <!-- Layer Legend & Checkbox Toggles -->
+          <div class="map-legend-overlay">
+            <div class="legend-title">GIS Layers &amp; Legend</div>
+            <div class="legend-items">
+              <label class="legend-item">
+                <div class="legend-item-left">
+                  <div class="legend-color-box parcel"></div>
+                  <span>🟦 Parcel Boundaries</span>
+                </div>
+                <input type="checkbox" class="layer-toggle-checkbox" data-layer="parcels" checked>
+              </label>
+
+              <label class="legend-item">
+                <div class="legend-item-left">
+                  <div class="legend-color-box building"></div>
+                  <span>🏠 Building Footprints</span>
+                </div>
+                <input type="checkbox" class="layer-toggle-checkbox" data-layer="buildings" checked>
+              </label>
+
+              <label class="legend-item">
+                <div class="legend-item-left">
+                  <div class="legend-color-box road"></div>
+                  <span>🛣️ Road Networks (ROW)</span>
+                </div>
+                <input type="checkbox" class="layer-toggle-checkbox" data-layer="roads" checked>
+              </label>
+
+              <label class="legend-item">
+                <div class="legend-item-left">
+                  <div class="legend-color-box" style="background: rgba(168, 85, 247, 0.5); border: 1px solid #a855f7;"></div>
+                  <span>📍 Vertex Boundary Pins</span>
+                </div>
+                <input type="checkbox" class="layer-toggle-checkbox" data-layer="vertices">
+              </label>
+
+              <label class="legend-item">
+                <div class="legend-item-left">
+                  <div class="legend-color-box" style="background: rgba(255, 255, 255, 0.4); border: 1px solid #ffffff;"></div>
+                  <span>📐 Dimension Annotations</span>
+                </div>
+                <input type="checkbox" class="layer-toggle-checkbox" data-layer="dimensions" checked>
+              </label>
+            </div>
+          </div>
+
+          <!-- Dynamic Coordinates Status Bar -->
+          <div class="map-status-bar">
+            <span id="status-cursor-coords">Lat: 28.613902&deg; N, Lon: 77.209015&deg; E | UTM: 43R 714240m E, 3167400m N</span>
+            <span>Scale 1:500 &bull; EPSG:32643 &bull; WGS 84</span>
+          </div>
+        </div>
+
+        <!-- Right Sidebar: Interactive Parcel Inspector -->
+        <aside class="gis-inspector-pane">
+          <div class="inspector-header">
+            <h3>
+              <span>Parcel Property Inspector</span>
+              <span class="status-tag verified" id="insp-status">Verified</span>
+            </h3>
+          </div>
+
+          <div class="inspector-body">
+            <div class="parcel-id-banner">
+              <div>
+                <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase;">Cadastral ID</div>
+                <div class="id-val" id="insp-parcel-id">PAR-2024-0104</div>
+              </div>
+              <div style="text-align: right;">
+                <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase;">Confidence</div>
+                <div style="font-family: var(--font-mono); font-weight: 700; color: #10b981;" id="insp-confidence">99.2%</div>
+              </div>
+            </div>
+
+            <!-- Cadastral Attributes -->
+            <div class="property-group">
+              <div class="property-group-title">Cadastral Specifications</div>
+              
+              <div class="prop-row">
+                <span class="prop-name">Registered Owner:</span>
+                <span class="prop-value" id="insp-owner">Metropolitan Housing Board</span>
+              </div>
+              
+              <div class="prop-row">
+                <span class="prop-name">Land-Use Classification:</span>
+                <span class="prop-value" id="insp-landuse" style="color: #38bdf8;">Residential (Villa)</span>
+              </div>
+
+              <div class="prop-row">
+                <span class="prop-name">Parcel Area (m&sup2;):</span>
+                <span class="prop-value" id="insp-area-m2">610.4 m&sup2;</span>
+              </div>
+
+              <div class="prop-row">
+                <span class="prop-name">Parcel Area (sq ft):</span>
+                <span class="prop-value" id="insp-area-sqft">6,570.3 sq ft</span>
+              </div>
+
+              <div class="prop-row">
+                <span class="prop-name">Perimeter Boundary:</span>
+                <span class="prop-value" id="insp-perimeter">101.4 m</span>
+              </div>
+            </div>
+
+            <!-- Building & Coverage Stats -->
+            <div class="property-group">
+              <div class="property-group-title">Built-Up Footprint &amp; BCR</div>
+              
+              <div class="prop-row">
+                <span class="prop-name">Buildings Mapped:</span>
+                <span class="prop-value" id="insp-buildings">1</span>
+              </div>
+
+              <div class="prop-row">
+                <span class="prop-name">Building Footprint:</span>
+                <span class="prop-value" id="insp-bldg-area">260.0 m&sup2;</span>
+              </div>
+
+              <div class="prop-row">
+                <span class="prop-name">Building Coverage Ratio:</span>
+                <span class="prop-value" id="insp-bcr" style="color: #fb923c;">42.6%</span>
+              </div>
+            </div>
+
+            <!-- Vertex Coordinates Table -->
+            <div class="property-group">
+              <div class="property-group-title">Polygon Boundary Vertices (EPSG:4326)</div>
+              
+              <div class="vertex-table-wrap">
+                <table class="vertex-table">
+                  <thead>
+                    <tr>
+                      <th>Node</th>
+                      <th>Latitude</th>
+                      <th>Longitude</th>
+                    </tr>
+                  </thead>
+                  <tbody id="insp-vertex-tbody">
+                    <!-- Populated dynamically via JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCREEN 5: REPORT, CADASTRE REGISTRY & ANALYTICS
+         ==================================================================== -->
+    <section id="screen-report" class="screen-view">
+      <div class="report-screen-layout">
+        <!-- Export Action Bar -->
+        <div class="export-action-bar">
+          <div>
+            <h3 style="font-size: 16px; font-weight: 700; color: var(--text-main);">Cadastral Analytics &amp; Data Export Hub</h3>
+            <p style="font-size: 12px; color: var(--text-muted);">Generate OGC-standard geospatial vector files, cadastral spreadsheets, and survey certificates</p>
+          </div>
+
+          <div class="export-btns">
+            <button class="btn-export" id="btn-export-geojson">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              Download GeoJSON
+            </button>
+
+            <button class="btn-export" id="btn-export-csv">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+              </svg>
+              Export CSV
+            </button>
+
+            <button class="btn-export primary" id="btn-export-report">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                <rect x="6" y="14" width="12" height="8"></rect>
+              </svg>
+              Download Cadastral Report
+            </button>
+          </div>
+        </div>
+
+        <!-- Analytical Charts & Summaries -->
+        <div class="analytics-chart-grid">
+          <div class="chart-card">
+            <h4 style="font-size: 13px; font-weight: 700; color: var(--text-main);">Land-Use Distribution (% of Total Area)</h4>
+            
+            <div class="distribution-bar-wrap">
+              <div class="dist-bar-item">
+                <div class="dist-bar-label">
+                  <span>Residential (Villas &amp; Townhouses)</span>
+                  <span style="font-family: var(--font-mono); font-weight: 600;">62.4%</span>
+                </div>
+                <div class="dist-bar-track">
+                  <div class="dist-bar-fill" style="width: 62.4%; background: #00d2ff;"></div>
+                </div>
+              </div>
+
+              <div class="dist-bar-item">
+                <div class="dist-bar-label">
+                  <span>Commercial &amp; Office Retail</span>
+                  <span style="font-family: var(--font-mono); font-weight: 600;">22.8%</span>
+                </div>
+                <div class="dist-bar-track">
+                  <div class="dist-bar-fill" style="width: 22.8%; background: #fb923c;"></div>
+                </div>
+              </div>
+
+              <div class="dist-bar-item">
+                <div class="dist-bar-label">
+                  <span>Public Infrastructure &amp; Utilities</span>
+                  <span style="font-family: var(--font-mono); font-weight: 600;">8.6%</span>
+                </div>
+                <div class="dist-bar-track">
+                  <div class="dist-bar-fill" style="width: 8.6%; background: #facc15;"></div>
+                </div>
+              </div>
+
+              <div class="dist-bar-item">
+                <div class="dist-bar-label">
+                  <span>Open Space &amp; Green Buffer</span>
+                  <span style="font-family: var(--font-mono); font-weight: 600;">6.2%</span>
+                </div>
+                <div class="dist-bar-track">
+                  <div class="dist-bar-fill" style="width: 6.2%; background: #10b981;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <h4 style="font-size: 13px; font-weight: 700; color: var(--text-main);">Cadastral Survey Accuracy Metrics</h4>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px;">
+              <div style="background: var(--bg-base); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+                <div style="font-size: 11px; color: var(--text-muted);">Boundary RMSE:</div>
+                <div style="font-size: 18px; font-weight: 800; font-family: var(--font-mono); color: #10b981;">0.082 m</div>
+                <div style="font-size: 10px; color: var(--text-dim);">Sub-decimeter precision</div>
+              </div>
+
+              <div style="background: var(--bg-base); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+                <div style="font-size: 11px; color: var(--text-muted);">Topology Consistency:</div>
+                <div style="font-size: 18px; font-weight: 800; font-family: var(--font-mono); color: #00d2ff;">100.0%</div>
+                <div style="font-size: 10px; color: var(--text-dim);">0 Sliver / 0 Overlap errors</div>
+              </div>
+
+              <div style="background: var(--bg-base); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+                <div style="font-size: 11px; color: var(--text-muted);">Mean Parcel Area:</div>
+                <div style="font-size: 18px; font-weight: 800; font-family: var(--font-mono); color: var(--text-main);">652.8 m&sup2;</div>
+                <div style="font-size: 10px; color: var(--text-dim);">Std Dev: &plusmn;142 m&sup2;</div>
+              </div>
+
+              <div style="background: var(--bg-base); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+                <div style="font-size: 11px; color: var(--text-muted);">Avg Building Coverage:</div>
+                <div style="font-size: 18px; font-weight: 800; font-family: var(--font-mono); color: #fb923c;">42.8%</div>
+                <div style="font-size: 10px; color: var(--text-dim);">FAR Density: 1.45</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Search & Filter Controls -->
+        <div class="registry-search-bar">
+          <input type="text" id="registry-search" class="search-input" placeholder="Search parcels by ID (e.g. PAR-2024-0104), Owner Name, or Land Use...">
+          <select id="registry-filter" class="filter-select">
+            <option value="all">All Land-Use Types</option>
+            <option value="residential">Residential</option>
+            <option value="commercial">Commercial</option>
+            <option value="infrastructure">Public Infrastructure</option>
+            <option value="green">Open Green Space</option>
+          </select>
+        </div>
+
+        <!-- Cadastral Registry Data Table -->
+        <div class="recent-surveys-card" style="padding: 16px;">
+          <table class="gis-table">
+            <thead>
+              <tr>
+                <th>Parcel ID</th>
+                <th>Registered Owner</th>
+                <th>Land Use</th>
+                <th>Calculated Area (m&sup2;)</th>
+                <th>Perimeter</th>
+                <th>Buildings</th>
+                <th>Confidence</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="registry-table-body">
+              <!-- Populated dynamically via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCREEN 6: TECHNOLOGY ARCHITECTURE
+         ==================================================================== -->
+    <section id="screen-architecture" class="screen-view">
+      <div class="arch-screen">
+        <div class="arch-header">
+          <h2>Technology Architecture &amp; Implementation Stack</h2>
+          <p style="color: var(--text-muted); font-size: 13px;">Photogrammetric Computer Vision &amp; Cadastral GIS Vectorization Framework</p>
+        </div>
+
+        <div class="stack-flow-container">
+          <!-- Layer 1: Front-End GIS Interface -->
+          <div class="stack-layer-card fe">
+            <div>
+              <div class="layer-badge">Tier 1: Presentation &amp; Vector GIS</div>
+              <div class="layer-name">HTML + CSS + JavaScript Canvas GIS</div>
+              <div class="layer-tech-tags">
+                <span class="tech-tag">HTML5 Canvas</span>
+                <span class="tech-tag">Vanilla JS ES6+</span>
+                <span class="tech-tag">CSS3 Glassmorphism</span>
+                <span class="tech-tag">SVG Vector Renderer</span>
+              </div>
+            </div>
+            <div class="layer-desc">
+              High-performance interactive web mapping client featuring sub-pixel canvas vector rendering, split-curtain comparison sliders, multi-layer GIS visibility toggles, interactive geodesic distance/area calculators, and instantaneous GeoJSON/CSV serializations.
+            </div>
+          </div>
+
+          <!-- Layer 2: Web API & Services -->
+          <div class="stack-layer-card be">
+            <div>
+              <div class="layer-badge" style="color: #10b981;">Tier 2: Backend Orchestrator</div>
+              <div class="layer-name">Python 3.11 + Flask / FastAPI</div>
+              <div class="layer-tech-tags">
+                <span class="tech-tag">Flask RESTful API</span>
+                <span class="tech-tag">Celery Workers</span>
+                <span class="tech-tag">Async I/O</span>
+                <span class="tech-tag">OGC WMS / WFS</span>
+              </div>
+            </div>
+            <div class="layer-desc">
+              Handles aerial orthomosaic file uploads, sensor EXIF photogrammetry decoding, tile-pyramid partitioning, asynchronous batch GPU dispatching, and REST endpoints for GIS vector querying and cadastral certificate generation.
+            </div>
+          </div>
+
+          <!-- Layer 3: Image Preprocessing & Photogrammetry -->
+          <div class="stack-layer-card cv">
+            <div>
+              <div class="layer-badge" style="color: #f59e0b;">Tier 3: Computer Vision Preprocessing</div>
+              <div class="layer-name">OpenCV + GDAL / Rasterio</div>
+              <div class="layer-tech-tags">
+                <span class="tech-tag">OpenCV 4.9</span>
+                <span class="tech-tag">CLAHE Contrast</span>
+                <span class="tech-tag">GDAL Warp</span>
+                <span class="tech-tag">GeoTIFF Tiling</span>
+              </div>
+            </div>
+            <div class="layer-desc">
+              Performs radiometric normalization, contrast-limited adaptive histogram equalization (CLAHE), orthorectification correction, spatial resolution downsampling to standard GSD grids, and seamless sliding-window tile generation for neural inference.
+            </div>
+          </div>
+
+          <!-- Layer 4: AI & Deep Learning Segmentation -->
+          <div class="stack-layer-card ai">
+            <div>
+              <div class="layer-badge" style="color: #a855f7;">Tier 4: Deep Learning Segmentation</div>
+              <div class="layer-name">YOLOv8-Seg + SAM + DeepLabV3+</div>
+              <div class="layer-tech-tags">
+                <span class="tech-tag">YOLOv8-Seg</span>
+                <span class="tech-tag">Segment Anything (SAM)</span>
+                <span class="tech-tag">DeepLabV3+</span>
+                <span class="tech-tag">TensorRT FP16</span>
+              </div>
+            </div>
+            <div class="layer-desc">
+              Multi-task deep convolutional neural networks extracting building rooftop masks, road corridor centerlines, boundary walls, and fence lines. Incorporates promptable Segment Anything Model (SAM) for zero-shot boundary delineation.
+            </div>
+          </div>
+
+          <!-- Layer 5: Geospatial Analysis & Topology -->
+          <div class="stack-layer-card gis">
+            <div>
+              <div class="layer-badge" style="color: #00f2fe;">Tier 5: Geospatial Topology Engine</div>
+              <div class="layer-name">GeoPandas + Shapely + PyProj + Folium</div>
+              <div class="layer-tech-tags">
+                <span class="tech-tag">GeoPandas</span>
+                <span class="tech-tag">Shapely Polygon Ops</span>
+                <span class="tech-tag">Douglas-Peucker</span>
+                <span class="tech-tag">Folium / Leaflet</span>
+              </div>
+            </div>
+            <div class="layer-desc">
+              Converts raw raster probability masks into topologically sound planar polygon graphs. Applies Douglas-Peucker simplification, eliminates slivers, ensures zero overlapping polygons, projects coordinates to EPSG:32643 UTM grids, and encodes official GeoJSON FeatureCollections.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ========================================================================
+     MODAL: CADASTRAL SURVEY REPORT / CERTIFICATE (PRINT VIEW)
+     ======================================================================== -->
+<div class="modal-backdrop" id="report-modal">
+  <div class="cadastral-report-modal">
+    <div class="report-modal-header">
+      <h3>Official Cadastral Survey Certificate &amp; Parcel Schedule</h3>
+      <div style="display: flex; gap: 8px;">
+        <button class="btn btn-primary" id="btn-print-report" style="padding: 6px 12px; font-size: 11.5px;">Print / Save PDF</button>
+        <button class="btn btn-secondary" id="btn-close-report" style="padding: 6px 12px; font-size: 11.5px;">Close</button>
+      </div>
+    </div>
+
+    <div class="report-paper-body">
+      <div class="cert-header">
+        <h1>Directorate of Urban Survey &amp; Cadastral Mapping</h1>
+        <p>Certificate of Automated Drone Photogrammetric Cadastral Feature Extraction</p>
+      </div>
+
+      <div class="cert-meta-grid">
+        <div>
+          <div><strong>Survey Flight Name:</strong> <span id="cert-dataset-name">Sector 4 Urban Residential Cadastre</span></div>
+          <div><strong>Coordinate Reference:</strong> <span id="cert-crs">EPSG:32643 (UTM Zone 43N)</span></div>
+          <div><strong>Ground Sampling Distance:</strong> <span id="cert-gsd">2.8 cm/px</span></div>
+        </div>
+        <div>
+          <div><strong>Survey Date:</strong> <span id="cert-date">August 28, 2026</span></div>
+          <div><strong>Total Parcels Delineated:</strong> <span id="cert-parcels">15 Parcels</span></div>
+          <div><strong>Total Mapped Area:</strong> <span id="cert-area">4.82 ha</span></div>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 12px; font-weight: 700; font-size: 12px;">Cadastral Parcel Schedule &amp; Land-Use Breakdown:</div>
+      
+      <table class="cert-table">
+        <thead>
+          <tr>
+            <th>Parcel ID</th>
+            <th>Registered Owner / Title Holder</th>
+            <th>Land-Use Category</th>
+            <th>Mapped Area</th>
+            <th>Buildings</th>
+            <th>Coverage (BCR)</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="cert-table-body">
+          <!-- Populated dynamically via JS -->
+        </tbody>
+      </table>
+
+      <div class="cert-meta-grid" style="margin-top: 16px;">
+        <div>
+          <div><strong>Boundary Precision (RMSE):</strong> <span id="cert-rmse">0.082 m</span></div>
+          <div><strong>AI Model Mean Confidence:</strong> <span id="cert-confidence">96.8%</span></div>
+        </div>
+        <div>
+          <div><strong>Geospatial Format:</strong> OGC RFC-7946 GeoJSON Compliant</div>
+          <div><strong>Topology Validation:</strong> 0 Overlaps &bull; 0 Gap Slivers</div>
+        </div>
+      </div>
+
+      <div class="cert-footer">
+        <div>
+          <div>Digitally Verified by AeroCadastre AI Engine v2.4</div>
+          <div style="font-size: 9px; color: #94a3b8; margin-top: 2px;">Hash: SHA256: 8f4a9b2c7e1d5a890432fbc1278e90ad</div>
+        </div>
+        <div class="signature-box">
+          Chief Cadastral Surveyor
+          <div style="font-size: 9px; color: #64748b; font-weight: 400; margin-top: 2px;">Govt. Licensed Land Survey Authority</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toast-container"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
