@@ -1,0 +1,8 @@
+Parcel_ID,Owner,Land_Use,Area_m2,Area_sqft,Perimeter_m,Building_Count,Building_Area_m2,BCR_Percent,Confidence,Legal_Status
+PAR-2024-0101,DLF Residential Trust,Residential (Low-Rise),540.2,5814.7,94.6,1,210.5,38.9,97.4,Verified
+PAR-2024-0102,Sharma Estate Holdings,Residential (Low-Rise),520.0,5597.2,92.8,1,195.0,37.5,Verified
+PAR-2024-0103,Greenfield Realty Ltd,Residential (Duplex),560.8,6036.4,96.2,2,240.0,42.8,Verified
+PAR-2024-0104,Metropolitan Housing Board,Residential (Villa),610.4,6570.3,101.4,1,260.0,42.6,Verified
+PAR-2024-0105,Apex Commercial Plaza,Commercial / Retail,890.0,9580.0,122.0,1,520.0,58.4,Verified
+PAR-2024-0106,Civic Health Center,Public Infrastructure,780.5,8401.2,114.0,1,380.0,48.7,Verified
+PAR-2024-0107,Urban Education Trust,Institutional / School,1250.0,13454.9,148.0,2,610.0,48.8,Verified
